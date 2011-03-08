@@ -1,0 +1,14 @@
+Instructions for printing this LightScribe Label under Windows
+===============================================================
+
+1) Export the "label.psd" file as a PNG file (without changing visibility
+   of any layer or the resolution).
+2) Install the LightScribe Template Labeler available from
+   http://lightscribe.com/downloadSection/windows/index.aspx
+3) Launch it, select "No background" as the template category and select the
+   second template in the list (blank CD)
+4) Click in the middle of the CD on the right to add an image. Then open the
+   exported PNG file in the panel on the left. It will be auto-resized to
+   fit into the CD area.
+5) Click "Preview and Print", select "Optimal" as the contrast level and
+   print it.
