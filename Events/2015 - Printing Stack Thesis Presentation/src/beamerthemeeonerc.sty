@@ -1,0 +1,166 @@
+% Copyright 2007 by Till Tantau
+% Copyright 2009 by Rainer Finocchiaro
+% Copyright 2012 by Georg Wassen
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackageRCS $Header: beamerthemeeonerc.sty,v 0.1 2012/12/13 wassen Exp $
+
+\RequirePackage{xspace}                             % for \xspace
+\RequirePackage{etoolbox}
+
+\newtoggle{bigbanner}
+\togglefalse{bigbanner}
+\DeclareOption{bigbanner}{\toggletrue{bigbanner}}
+\newtoggle{subtitle}
+\togglefalse{subtitle}
+\DeclareOption{subtitle}{\toggletrue{subtitle}}
+\newtoggle{shortpagenumbers}
+\DeclareOption{shortpagenumbers}{\toggletrue{shortpagenumbers}}
+\ProcessOptions
+
+
+%%
+%% Use Arial as default font
+%%
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{phv} 
+
+%%
+%% include RWTH logo (for header)
+%%
+\ifthenelse{\boolean{outputPrintVersion}}{
+	\logo{\includegraphics[height=5mm]{logos/eonerc_rwth}}
+}{
+	\logo{\textcolor{white}{\rule{5mm}{5mm}}}
+}
+
+
+%%
+%% add new commands to set web and email address
+%% (and, optionally, institute logo
+%%
+\newcommand*{\webaddress}[1]{}
+\newcommand*{\printwebaddress}{www.rwth-aachen.de}
+\renewcommand*{\webaddress}[1]{\renewcommand*{\printwebaddress}{#1}}
+
+\newcommand*{\email}[1]{}
+\newcommand*{\printemail}{}
+\renewcommand*{\email}[1]{\renewcommand*{\printemail}{\href{mailto:#1}{#1}\xspace}}
+
+\newcommand*{\instlogo}[1]{}
+\newcommand*{\printinstlogo}{}
+\renewcommand*{\instlogo}[1]{\renewcommand*{\printinstlogo}{#1}}
+
+\instlogo{\includegraphics[height=8mm]{logos/acs}}
+
+\newtoggle{titlebanner}
+\togglefalse{titlebanner}
+\newcommand*{\titlebanner}[1]{}
+\newcommand*{\printtitlebanner}{}
+\renewcommand*{\titlebanner}[1]{\toggletrue{titlebanner}\renewcommand*{\printtitlebanner}{#1}}
+
+\newcommand*{\instlogobottom}{
+	\begin{tikzpicture}[overlay, remember picture]
+		% bottom line
+		\coordinate(bottomlineStart) at ($(current page.south west)+(\sepLineDist, \footlineHeight)$);
+		\coordinate(bottomlineEnd) at ($(bottomlineStart)+(\sepLineLength, 0)$);
+		\coordinate(toplineStart) at ($(current page.north west)+(\sepLineDist, -\headlineHeight)$) -- +(\sepLineLength, 0);
+		\coordinate(toplineEnd) at ($(toplineStart)+(\sepLineLength, 0)$);
+
+		% RWTH logo
+		\coordinate (logoAnchorLot) at ($(current page.south west)!(bottomlineEnd)!(current page.south east)$);
+		\coordinate (logoAnchor) at ($(logoAnchorLot)!.5!(bottomlineEnd)$);
+		\node [anchor=east, outer sep=0, inner sep=0] (ercrwthLogo) at (logoAnchor) {\insertlogo};
+	\end{tikzpicture}
+}
+
+%%
+%% the '\lastpage' command may be used to insert a 'running-out' slide
+%%
+\newcommand*{\lastpage}{
+	\begin{frame}[plain,t]
+		\begin{columns}
+			\begin{column}{.05\paperwidth}
+			\end{column}
+			\begin{column}{.95\paperwidth}
+				\hfill
+
+				\vspace{4cm}
+				\scriptsize
+				\protect\iflanguage{ngerman}{Vielen Dank f\"ur Ihre Aufmerksamkeit!}{}
+				\protect\iflanguage{english}{Thank you for your kind attention!}{}
+
+
+				\vspace{4ex}
+				\textbf{\insertauthor}\ifx\printemail\@empty\else{~--~{\color{eonercred}\printemail}}\fi
+
+				\vspace{2ex}
+				Institute for Automation of Complex Power Systems\\
+				E.ON Energy Research Center, RWTH Aachen University\\
+				Mathieustra{\ss}e 10\\
+				52074 Aachen
+
+				\vspace{2ex}
+				{\color{eonercred}\url{\printwebaddress}}
+				\instlogobottom
+			\end{column}
+		\end{columns}
+	\end{frame}
+}
+
+\mode<presentation>
+
+% Define some lengths
+\newlength{\bulletHeight}
+\setlength{\bulletHeight}{5pt}
+\newlength{\bulletWidth}
+\setlength{\bulletWidth}{5pt}
+\newlength{\footlineHeight}
+\setlength{\footlineHeight}{.75cm}
+\newlength{\headlineHeight}
+\setlength{\headlineHeight}{1.25cm}
+\newlength{\backgroundHeight}
+\setlength{\backgroundHeight}{\paperheight}
+\addtolength{\backgroundHeight}{-\headlineHeight}
+\addtolength{\backgroundHeight}{-\footlineHeight}
+
+%%
+%% add some commands for itemize bullets
+%%
+\newcommand*{\bulletLayerOne}[1]{}
+\newcommand*{\printBulletLayerOne}{}
+\renewcommand*{\bulletLayerOne}[1]{\renewcommand*{\printBulletLayerOne}{#1}}
+\bulletLayerOne{\includegraphics[height=\bulletHeight, width=\bulletWidth]{logos/bullet_layer_one}}
+
+\newcommand*{\bulletLayerTwo}[1]{}
+\newcommand*{\printBulletLayerTwo}{}
+\renewcommand*{\bulletLayerTwo}[1]{\renewcommand*{\printBulletLayerTwo}{#1}}
+\bulletLayerTwo{\includegraphics[height=\bulletHeight, width=\bulletWidth]{logos/bullet_layer_two}}
+
+\newcommand*{\bulletLayerThree}[1]{}
+\newcommand*{\printBulletLayerThree}{}
+\renewcommand*{\bulletLayerThree}[1]{\renewcommand*{\printBulletLayerThree}{#1}}
+\bulletLayerThree{\includegraphics[height=\bulletHeight, width=\bulletWidth]{logos/bullet_layer_three}}
+
+\newcommand*{\bulletLayerFour}[1]{}
+\newcommand*{\printBulletLayerFour}{}
+\renewcommand*{\bulletLayerFour}[1]{\renewcommand*{\printBulletLayerFour}{#1}}
+\bulletLayerFour{\color{eonercred}$\bullet$}
+
+%%
+%% include the other style files of the rwth theme
+%%
+
+\usefonttheme{eonerc}         % beamerfontthemerwth.sty
+\usecolortheme{eonerc}        % beamercolorthemerwth.sty
+\useoutertheme{eonerc}        % beamerouterthemerwth.sty
+\useinnertheme{eonerc}        % beamerinnerthemerwth.sty
+
+\mode<all>
+

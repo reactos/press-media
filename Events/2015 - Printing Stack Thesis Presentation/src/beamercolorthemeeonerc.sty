@@ -1,0 +1,88 @@
+% Copyright 2007 by Till Tantau
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackageRCS $Header: beamercolorthemeeonerc.sty,v 1.4 2007/01/28 20:48:24 tantau Exp $
+
+
+\mode<presentation>
+
+%%
+%% define colors
+%%
+\xdefinecolor{eonercred}{RGB}{219,62,52}
+
+\xdefinecolor{ultralightred}{RGB}{250,220,216}
+\xdefinecolor{verylightred}{RGB}{244,183,177}
+\xdefinecolor{lightred}{RGB}{239,145,134}
+\xdefinecolor{normalred}{RGB}{219,62,52}
+\xdefinecolor{darkred}{RGB}{173,53,53}
+\xdefinecolor{verydarkred}{RGB}{125,35,19}
+
+% Main colors
+\setbeamercolor*{normal text}{fg=black}
+
+\setbeamercolor*{structure}{fg=eonercred}
+
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg,bg=lightred}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg,bg=verylightred}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg,bg=ultralightred}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg,bg=ultralightred}
+
+% Outer structure
+\setbeamercolor*{separation line}{bg=black} % Draw separation lines, part of default RWTH theme
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{title}{fg=eonerc}
+\setbeamercolor{subtitle}{fg=black}
+\setbeamercolor{author}{fg=black}
+\setbeamercolor{date}{fg=black}
+\setbeamercolor{section}{fg=black}
+
+
+
+
+%%
+%% settings for the title page
+%%
+\setbeamercolor{title in titlepage}{fg=eonercred}
+\setbeamercolor{title}{fg=eonercred}
+\setbeamercolor{block title}{fg=eonercred}
+\setbeamercolor{title in head/foot}{fg=eonercred}
+\setbeamercolor{text in footer}{fg=gray}
+\setbeamercolor{subtitle}{fg=black}
+\setbeamercolor{author in head/foot}{fg=black}
+\setbeamercolor{institute in head/foot}{fg=eonercred}
+
+
+
+%%
+%% settings for the outer theme
+%%
+\setbeamercolor{framenumber in head/foot}{}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{section}{fg=black}
+
+%%
+%% settings for the table of contents
+%%
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{subsection in toc}{fg=black}
+
+
+%%
+%% settings for the inner theme (e.g. itemize)
+%%
+\setbeamercolor{enumerate item}{fg=eonercred}
+\setbeamercolor{enumerate subitem}{fg=eonercred}
+\setbeamercolor{enumerate subsubitem}{fg=eonercred}
+\setbeamercolor{itemize item}{fg=eonercred}
+\setbeamercolor{itemize subitem}{fg=eonercred}
+\setbeamercolor{itemize subsubitem}{fg=eonercred}
+
+\mode<all>
+

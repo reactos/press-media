@@ -1,0 +1,181 @@
+% Copyright 2007 by Till Tantau
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackageRCS $Header: beamerinnerthemeeonerc.sty,v 1.4 2007/07/23 20:48:30 tantau Exp $
+
+\RequirePackage{marvosym}           % for \MVRightArrow (used in: itemize subitem)
+\RequirePackage{calc}
+
+\mode<presentation>
+
+\defbeamertemplate{title page}{smallbanner}{
+	% The white bar, fills 1/3rd
+	\usebeamercolor{title page bar}
+	\begin{tikzpicture}[overlay, remember picture]
+		\iftoggle{titlebanner}{%
+			\coordinate (bannerPos) at ($(current page.north west)+(0.5\paperwidth,-0.1665\paperheight)$);
+			\node[
+				inner sep=0pt
+			] (picture) at (bannerPos) {\includegraphics[height=.333\paperheight,width=\paperwidth]{\printtitlebanner}};
+		}{%
+			\node [
+				fill=eonercred,
+				minimum width=\paperwidth,
+				minimum height=0.333\paperheight,
+				anchor=north west,
+			] (picture) at (current page.north west) {};
+		}
+		\coordinate (picture.south west) at ($(current page.north west)+(0, -0.333\paperheight)$);
+		\coordinate (titlePos) at ($(picture.south west)+(2em, -1.0cm)$);
+		\node [
+			anchor=west,
+			align=left,
+			text={eonercred},
+			font={\usebeamerfont{title in title page}},
+		] (title) at (titlePos) {\inserttitle};
+		\coordinate (subtitlePos) at ($(title.south west)+(0, -.3cm)$);
+		\node [
+			anchor=west,
+			align=left,
+			text={black},
+			font={\usebeamerfont{subtitle in title page}},
+		] (subtitle) at (subtitlePos) {\insertsubtitle};
+		\coordinate (authorPos) at ($(subtitle.south west)+(0, -.6cm)$);
+		\node [
+			anchor=west,
+			align=left,
+			text={black},
+			font={\usebeamerfont{author in title page}},
+		] (author) at (authorPos) {\insertauthor};
+
+	\end{tikzpicture}
+
+	% Print institute logo to the bottom of the page
+	\instlogobottom
+}
+
+\defbeamertemplate{title page}{bigbanner}{
+	% The white bar, fills 1/3rd
+	\usebeamercolor{title page bar}
+	\begin{tikzpicture}[overlay, remember picture]
+		\iftoggle{titlebanner}{%
+			\coordinate (bannerPos) at ($(current page.north west)+(0.5\paperwidth,-0.332\paperheight)$);
+			\node[
+				inner sep=0pt
+			] (picture) at (bannerPos) {\includegraphics[height=.666\paperheight,width=\paperwidth]{\printtitlebanner}};
+		}{%
+			\node [
+				fill=eonercred,
+				minimum width=\paperwidth,
+				minimum height=0.666\paperheight,
+				anchor=north west,
+			] (picture) at (current page.north west) {};
+		}
+		\coordinate (titlePos) at ($(picture.south west)+(2em, -1.0cm)$);
+		\iftoggle{subtitle}{%
+			\node [
+				anchor=west,
+				align=left,
+				text={eonercred},
+				font={\usebeamerfont{title in title page}},
+			] (title) at (titlePos) {\inserttitle{} -- \insertsubtitle{}};
+		}{%
+			\node [
+				anchor=west,
+				align=left,
+				text={eonercred},
+				font={\usebeamerfont{title in title page}},
+			] (title) at (titlePos) {\inserttitle{}};
+		}
+		\coordinate (authorPos) at ($(title.south west)+(0, -.3cm)$);
+		\node [
+			anchor=west,
+			align=left,
+			text={black},
+			font={\usebeamerfont{author in title page}},
+		] (author) at (authorPos) {\insertauthor};
+	\end{tikzpicture}
+
+	% Print institute logo to the bottom of the page
+	\instlogobottom
+}
+
+%%%
+% Title page
+%%%
+\iftoggle{bigbanner}{%
+	\setbeamertemplate{title page}[bigbanner]{}
+}{%
+	\setbeamertemplate{title page}[smallbanner]{}
+}
+
+
+% 
+% Itemize/Enumerate Layout
+%
+%1st Layer: Square
+\defbeamertemplate{itemize item}{layerOne}{\printBulletLayerOne}
+\setbeamertemplate{itemize item}[layerOne]
+
+% 2nd Layer: Three bars
+\defbeamertemplate{itemize subitem}{layerTwo}{\printBulletLayerTwo}
+\setbeamertemplate{itemize subitem}[layerTwo]
+\defbeamertemplate{enumerate subitem}{layerTwo}{\alph{enumii})}
+\setbeamertemplate{enumerate subitem}[layerTwo]
+
+% 3rd Layer: Two bars
+\defbeamertemplate{itemize subsubitem}{layerThree}{\printBulletLayerThree}
+\setbeamertemplate{itemize subsubitem}[layerThree]
+\defbeamertemplate{enumerate subsubitem}{layerThree}{\roman{enumiii})}
+\setbeamertemplate{enumerate subsubitem}[layerThree]
+
+
+\AtBeginSection[] % Do nothing for \section*
+{
+	\setbeamertemplate{navigation symbols}{}
+	\begin{frame}[plain]
+		\begin{columns}
+			\begin{column}{.05\paperwidth}
+			\end{column}
+			\begin{column}{.95\paperwidth}
+
+				\frametitle{~}
+				\vspace{3cm}
+				\begin {beamercolorbox}[sep=0pt]{section}
+					\usebeamerfont{section}\insertsection
+				\end {beamercolorbox}
+				\instlogobottom
+			\end{column}
+		\end{columns}
+	\end{frame}
+}
+
+\AtBeginDocument
+{
+	\iflanguage{ngerman}{\pdfbookmark[2]{Titelseite}{title}}{}
+	\iflanguage{english}{\pdfbookmark[2]{Title page}{title}}{}
+
+	\frame{\titlepage}
+}
+
+%% 
+%% Table of Content Layout
+%%
+\defbeamertemplate{section in toc}{acssquare}{%
+	\hspace*{1em}{\printBulletLayerOne}~~\inserttocsection%
+}
+\setbeamertemplate{section in toc}[acssquare]
+\defbeamertemplate{subsection in toc}{acsequiv}{%
+	\hspace*{1em}\small\vspace{.5ex}\leftskip=1.2em%
+	{\printBulletLayerTwo}~~\inserttocsubsection\par%
+}
+\setbeamertemplate{subsection in toc}[acsequiv]
+
+\mode<all>
+

@@ -1,0 +1,119 @@
+\ProvidesPackageRCS $Header: beamerouterthemeeonerc.sty,v 1.9 2007/07/16 20:48:30 tantau Exp $
+\RequirePackage{calc}       % needed for calculations of lengths
+
+\mode<presentation>
+
+\setbeamersize{sidebar width right=0mm}         % no right sidebar.
+\setbeamersize{text margin right=1.9em}
+\setbeamersize{text margin left=.025\paperwidth}
+
+% no sidebars
+\defbeamertemplate*{sidebar right}{rwth theme}{}
+\defbeamertemplate*{sidebar left}{rwth theme}{}
+
+
+\defbeamertemplate*{frametitle}{rwth theme}[1][left]{}
+
+
+%%
+%% Definition of the headline
+%%
+\edef\sepLineDist{.025\paperwidth}
+\edef\sepLineLength{\paperwidth-2*\sepLineDist}
+\defbeamertemplate*{headline}{rwth theme}[1][left]
+{
+	\ifnum \insertpagenumber=1
+	\else
+	\leavevmode%
+	% hbox is necessary for correct text positioning in frame
+	\hbox{%
+		\begin{beamercolorbox}[sep=0cm,ht=\headlineHeight, wd=\sepLineDist]{frametitle}
+		\end{beamercolorbox}%
+	}
+	
+	% the actual footer definition
+	\begin{tikzpicture}[remember picture, overlay]
+		% bottom line
+		\draw [] (toplineStart) -- (toplineEnd); 
+		\coordinate (titleHelper) at ($(current page.north west)!(toplineStart)!(current page.north east)$);
+		\coordinate (titleAnchor) at ($(titleHelper)!.5!(toplineStart)$);
+		\node [
+			anchor=west,
+		] at (titleAnchor) {\usebeamerfont{frametitle}\strut\insertframetitle};
+	\end{tikzpicture}
+	\fi
+}
+
+
+%%
+%% Definition of the footline
+%%
+\iftoggle{shortpagenumbers}{%
+	\defbeamertemplate*{page numbering}{rwth theme}{%
+		\insertframenumber
+	}
+}{%
+	\defbeamertemplate*{page numbering}{rwth theme}{%
+		\insertframenumber~\protect\iflanguage{ngerman}{von}{}\protect\iflanguage{english}{of}{}~\inserttotalframenumber
+	}
+}
+\newcommand{\nempty}[3]{\ifx#1\empty#3{}\else#2{}\fi}
+\defbeamertemplate*{footer first line}{rwth theme}{%
+	\nempty{\insertshorttitle}{\insertshorttitle{}\enskip|\enskip}{}%
+	\nempty{\insertauthor}{\insertauthor{}\enskip|\enskip}{}%
+	\nempty{\insertshortinstitute}{\insertshortinstitute{}\enskip|\enskip}{}%
+}
+\defbeamertemplate*{footer second line}{rwth theme}{%
+	\insertdate
+}
+\edef\footlineTextDist{.01\paperwidth}
+\defbeamertemplate*{footline}{rwth theme}
+{
+	\ifnum \insertpagenumber=1
+	\else
+	\leavevmode%
+	% hbox is necessary for correct text positioning in frame
+	\hbox{%
+		\begin{beamercolorbox}[sep=0cm,ht=\footlineHeight, wd=\sepLineDist]{frametitle}
+		\end{beamercolorbox}%
+	}
+
+	% the actual footer definition
+	\begin{tikzpicture}[remember picture, overlay]
+		\draw []  (bottomlineStart) -- (bottomlineEnd); 
+
+		% Page Numbering
+		\coordinate (pageNumberPosLot) at ($(current page.south east)!(bottomlineStart)!(current page.south west)$);
+		\coordinate (pageNumerAnchor) at ($(bottomlineStart)!(ercrwthLogo.north west)!(pageNumberPosLot)$);
+		\node [
+			text=gray, 
+			anchor=north west,
+			outer sep=0,
+			inner sep=0
+		] (pageNumber) at (pageNumerAnchor) {\usebeamertemplate{page numbering}};
+
+		% Footer Text 1st line
+		\coordinate (firstLineAnchor) at ($(pageNumber.north east)+(\footlineTextDist, 0)$);
+		\node [
+			text=gray,
+			anchor=north west,
+			outer sep=0,
+			inner sep=0
+		] (footerFirstLine) at (firstLineAnchor) {\usebeamertemplate{footer first line}};
+
+		% Footer Text 2nd line
+		\coordinate (secondLineAnchor) at ($(intersection of footerFirstLine.north west--footerFirstLine.south west and ercrwthLogo.south west--ercrwthLogo.south east)$);
+		\node [
+			text=gray,
+			anchor=south west,
+			outer sep=0,
+			inner sep=0
+		] (footerSecondLine) at (secondLineAnchor) {\usebeamertemplate{footer second line}};	
+	\end{tikzpicture}
+	\fi
+
+	% Print institute logo to the bottom of the page
+	\instlogobottom
+}
+
+\mode<all>
