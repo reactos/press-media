@@ -1,23 +1,56 @@
-Licensing information of the different versions of the ReactOS Logo:
+Licensing information for the different versions of the ReactOS Logo:
 
-- From Krzysztof Blaszczyk (ROSFan, chr_bl@web.de), Published under GPLv2 or any
+- By Mindflyer (mf@mufunyo.net), published under GPLv2:
+
+  Orb/logo_alpha.png
+  Orb/logo_vector.ai
+  Orb/logo_vector.svgz
+
+  This is the original ReactOS Logo, but shouldn't be used anymore.
+  It is only kept for archival purposes.
+  Prefer the SVG version by Krzysztof Blaszczyk!
+
+
+- By Krzysztof Blaszczyk (ROSFan, chr_bl@web.de), published under GPLv2 or any
   later version, or covered under the Creative Commons Attribution-ShareAlike 3.0
   Unported License <https://creativecommons.org/licenses/by-sa/3.0/> :
 
   Orb/logo_notext_opacity.svg
   Orb/logo_notext_white_standard.svg
   OrbString/logo_text_standard.svg
-  OrbString/reactos_text_noglowing.svg
-  OrbString/reactos_text_standard.svg
+  String/reactos_text_noglowing.svg
+  String/reactos_text_standard.svg
 
-- From Colin Finck, unknown license:
-  Orb/Simplified/ReactOS%20Logo%20Simplified.svg
+  Use these files whenever you need a ReactOS Logo!
+
+
+- By Colin Finck (colin@reactos.org), published under GPLv2 or any
+  later version, or covered under the Creative Commons Attribution-ShareAlike 3.0
+  Unported License <https://creativecommons.org/licenses/by-sa/3.0/> :
+
+  Orb/Simplified/ReactOS Logo Simplified.svg
+
+  This simplified logo can alternatively be used for situations where the
+  primary logo is too complex.
+
+
+- By Cristan Meijer (https://en.wikipedia.org/wiki/User:Cristan),
+  published under GPLv2 or any later version at
+  https://en.wikipedia.org/wiki/File:ReactOS_logo.svg :
+
+  OrbString/ReactOS_logo.png
+  OrbString/ReactOS_logo.svg
+
+  This is the ReactOS Logo as used on Wikipedia, which has a smaller file size
+  than than the version by Krzysztof Blaszczyk.
+  Included for the sake of completeness.
+
 
 - Unknown author, unknown license:
-  OrbString/ReactOSTB.svg
-  OrbString/ReactOS_logo.svg
+
+  OrbString/ReactOS_logo_aligned.png
   OrbString/ReactOS_logo_aligned.svg
-  OrbString/ReactOS_logo_overlapped.svg
+
 
 All files not explicitly mentioned are copyrighted works, all rights reserved
 by their respective authors.
