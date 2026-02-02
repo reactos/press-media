@@ -10,4 +10,4 @@ This repository contains press materials, artwork, and event resources for the R
 
 ## License
 
-See individual COPYING files in subdirectories for licensing information.
+See COPYING files in subdirectories where available for licensing information.
